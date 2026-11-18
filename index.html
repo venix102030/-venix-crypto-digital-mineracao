@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10151f">
+  <title>Venix Crypto Digital</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --panel: #151c29;
+      --panel-2: #1b2433;
+      --line: #293548;
+      --text: #f4f7fb;
+      --muted: #9aa8ba;
+      --orange: #ff8a24;
+      --green: #22c783;
+      --red: #ff6262;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top right, #202b3d 0, var(--bg) 42%);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+    .wrap { width: min(1100px, 100%); margin: auto; padding: 22px 16px 40px; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 46px; height: 46px; border-radius: 14px;
+      display: grid; place-items: center; color: #111722;
+      background: linear-gradient(135deg, #ffb04d, var(--orange));
+      font-weight: 900; font-size: 24px;
+    }
+    h1 { font-size: 21px; margin: 0 0 4px; }
+    .sub, .muted { color: var(--muted); font-size: 13px; }
+    .status {
+      border: 1px solid var(--line); background: var(--panel);
+      border-radius: 30px; padding: 9px 13px; color: var(--muted); font-size: 12px;
+    }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--red); margin-right: 7px; }
+    .dot.on { background: var(--green); }
+    .hero {
+      background: linear-gradient(135deg, #202c40, #151c29 70%);
+      border: 1px solid var(--line); border-radius: 20px; padding: 22px;
+      margin-bottom: 16px;
+    }
+    .hero-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .eyebrow { color: var(--orange); text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: bold; }
+    .balance { font-size: clamp(28px, 7vw, 42px); font-weight: 800; margin: 12px 0 5px; }
+    .notice { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 16px; padding: 17px; min-width: 0;
+    }
+    .card h2 { font-size: 14px; margin: 0 0 13px; color: #dce5f1; }
+    .value { font-size: 23px; font-weight: 750; margin: 4px 0; overflow-wrap: anywhere; }
+    .small { font-size: 12px; color: var(--muted); }
+    .timer { font-size: clamp(27px, 8vw, 38px); font-weight: 800; letter-spacing: 1px; margin: 12px 0; font-variant-numeric: tabular-nums; }
+    .actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 14px; }
+    button {
+      border: 0; border-radius: 10px; padding: 12px 17px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+    }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .primary { background: var(--orange); color: #17120d; }
+    .secondary { background: #293548; color: var(--text); border: 1px solid #3a4a61; }
+    .wide { grid-column: 1 / -1; }
+    .bar { height: 8px; background: #273346; border-radius: 20px; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; width: 0%; background: var(--orange); transition: width .3s; }
+    .list { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .list:last-child { border-bottom: 0; }
+    footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 22px; line-height: 1.6; }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .wide { grid-column: auto; }
+      .wrap { padding: 17px 13px 30px; }
+      .hero { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">V</div>
+        <div>
+          <h1>VENIX CRYPTO DIGITAL</h1>
+          <div class="sub">Painel de acompanhamento</div>
+        </div>
+      </div>
+      <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Demonstração parada</span></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Visão geral</div>
+          <div class="balance">₿ <span id="btcBalance">0.00000000</span></div>
+          <div class="notice">Saldo demonstrativo — nenhuma criptomoeda foi minerada ou creditada.</div>
+        </div>
+        <div class="status">Ambiente de teste</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Preço de referência do Bitcoin</h2>
+        <div class="value">BTC / USD</div>
+        <div class="small">Cotação ao vivo será adicionada na integração com uma API.</div>
+      </article>
+
+      <article class="card">
+        <h2>Equipamento / mineradora</h2>
+        <div class="value">Não conectado</div>
+        <div class="small">A integração depende da API ou do painel fornecido pela mineradora.</div>
+      </article>
+
+      <article class="card wide">
+        <h2>Temporizador de demonstração</h2>
+        <div id="timer" class="timer">00:00:00</div>
+        <div class="small">Este cronômetro apenas testa a interface. Ele não inicia mineração real.</div>
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button" onclick="startDemo()">Iniciar demonstração</button>
+          <button id="stopBtn" class="secondary" type="button" onclick="stopDemo()" disabled>Parar</button>
+          <button class="secondary" type="button" onclick="resetDemo()">Zerar</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Atividade da sessão</h2>
+        <div class="value" id="sessionState">Aguardando</div>
+        <div class="small">Estado do temporizador local</div>
+        <div class="bar"><span id="progress"></span></div>
+      </article>
+
+      <article class="card">
+        <h2>Integrações</h2>
+        <div class="list"><span>Conta da mineradora</span><strong>Não conectada</strong></div>
+        <div class="list"><span>Carteira Bitcoin</span><strong>Não conectada</strong></div>
+        <div class="list"><span>API de cotação</span><strong>Pendente</strong></div>
+      </article>
+
+      <article class="card wide">
+        <h2>Próximas etapas do projeto</h2>
+        <div class="list"><span>1. Definir a mineradora e obter documentação da API</span><strong> Pendente </strong></div>
+        <div class="list"><span>2. Criar conexão segura no servidor</span><strong> Pendente </strong></div>
+        <div class="list"><span>3. Exibir dados reais autorizados da conta</span><strong> Pendente </strong></div>
+        <p class="notice">Nunca coloque senhas, chaves privadas ou tokens secretos diretamente neste arquivo HTML.</p>
+      </article>
+    </section>
+
+    <footer>
+      Venix Crypto Digital · Protótipo de interface<br>
+      Valores e indicadores desta versão são demonstrativos.
+    </footer>
+  </main>
+
+  <script>
+    let seconds = 0;
+    let interval = null;
+
+    function updateTimer() {
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const secs = String(seconds % 60).padStart(2, "0");
+      document.getElementById("timer").textContent = `${hours}:${minutes}:${secs}`;
+      document.getElementById("progress").style.width = `${(seconds % 60) / 60 * 100}%`;
+    }
+
+    function startDemo() {
+      if (interval !== null) return;
+      document.getElementById("statusDot").classList.add("on");
+      document.getElementById("statusText").textContent = "Demonstração em execução";
+      document.getElementById("sessionState").textContent = "Em execução";
+      document.getElementById("startBtn").disabled = true;
+      document.getElementById("stopBtn").disabled = false;
+      interval = setInterval(() => {
+        seconds++;
+        updateTimer();
+      }, 1000);
+    }
+
+    function stopDemo() {
+      if (interval !== null) {
+        clearInterval(interval);
+        interval = null;
+      }
+      document.getElementById("statusDot").classList.remove("on");
+      document.getElementById("statusText").textContent = "Demonstração parada";
+      document.getElementById("sessionState").textContent = "Pausada";
+      document.getElementById("startBtn").disabled = false;
+      document.getElementById("stopBtn").disabled = true;
+    }
+
+    function resetDemo() {
+      stopDemo();
+      seconds = 0;
+      updateTimer();
+      document.getElementById("sessionState").textContent = "Aguardando";
+    }
+
+    updateTimer();
+  </script>
+</body>
+</html>
